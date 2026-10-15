@@ -1,0 +1,100 @@
+RELATORIO DE TESTES - PIRATE BATTLE
+===================================
+
+Data da execucao documentada: 15/10/2026
+Projeto: game-developer-challenge
+
+RESUMO
+------
+As verificacoes automatizadas documentadas abaixo foram executadas com sucesso:
+
+- Playwright E2E: 18 testes aprovados (17 Chromium desktop e 1 Chromium mobile).
+- Vitest: 24 testes aprovados em 3 arquivos.
+- Oxlint: concluido sem erros.
+- TypeScript: verificacao de tipos concluida sem erros.
+- Build de producao: concluido sem erros.
+
+TESTES END-TO-END (PLAYWRIGHT)
+------------------------------
+Comando executado:
+  npm run test:e2e
+
+Resultado:
+  18 testes aprovados; nenhum teste falhou.
+
+Configuracao:
+  - Chromium desktop e Chromium mobile (perfil Pixel 7).
+  - Relogio da simulacao controlado e seed fixa para reproduzir cenarios.
+  - Relatorio HTML habilitado; traces, screenshots e videos sao retidos
+    em caso de falha, conforme playwright.config.ts.
+
+Cobertura da suite:
+  1. Opcoes: navegacao, validacao de limites e persistencia apos recarregar.
+  2. Assets: exibicao de falha de carregamento e tentativa de recuperacao.
+  3. Gameplay: movimento, rotacao, limites da arena e colisao com ilhas.
+  4. Combate: disparos frontal e lateral, cooldowns, dano e pontuacao sem
+     duplicacao por inimigo destruido.
+  5. Inimigos: comportamento de Chaser e Shooter e intervalo de spawn.
+  6. Ciclo da partida: fim por tempo e por morte, interrupcao da simulacao,
+     resultado persistido e reinicio com estado limpo.
+  7. Pausa: pausa manual, perda de visibilidade e retomada sem avancar o
+     cronometro enquanto pausado.
+  8. Abandono e navegacao repetida: sair sem gravar resultado e iniciar
+     outra partida sem manter o canvas anterior.
+  9. Ranking e historico: carregamento, paginacao, listas vazias e falhas
+     independentes de cada consulta.
+ 10. Registro de partida: atualizacao das abas, recuperacao de envio pendente
+     apos refresh, retry depois de timeout sem duplicacao e protecao contra
+     respostas atrasadas sobrescreverem dados recentes.
+ 11. Mobile: proporcao 16:9 da arena, funcionamento dos controles de toque e
+     verificacao de que os controles permanecem dentro da arena.
+ 12. Regressao visual: comparacao das telas de menu, arena estavel e resultado
+     com baselines versionadas.
+
+Arquivos principais dos testes:
+  tests/naval-shooter.spec.ts
+  tests/services.spec.ts
+  tests/mobile.spec.ts
+  tests/visual.spec.ts
+  tests/fixtures.ts
+
+Baselines visuais:
+  tests/visual.spec.ts-snapshots/
+
+TESTES UNITARIOS (VITEST)
+-------------------------
+Comando executado:
+  npm test
+
+Resultado:
+  3 arquivos de teste aprovados; 24 testes aprovados.
+
+Os testes unitarios exercitam as regras e configuracao da engine, a
+normalizacao de configuracoes e a deduplicacao de registros dos mocks.
+
+VERIFICACOES ESTATICAS E BUILD
+------------------------------
+Comandos executados e resultados:
+  npm run lint       - aprovado
+  npm run typecheck  - aprovado
+  npm run build      - aprovado; bundle de producao gerado em dist/
+
+RELATORIO PLAYWRIGHT
+--------------------
+O comando npm run test:e2e gera o relatorio HTML em:
+  playwright-report/index.html
+
+Para abrir o relatorio:
+  npx playwright show-report
+
+LIMITES DESTA VALIDACAO
+-----------------------
+- Este documento registra os resultados das execucoes acima; nao representa
+  uma medicao de performance ou profiling.
+- Nao foram registrados FPS, percentil 95 do tempo entre frames ou uso de
+  memoria em partida longa.
+- O build foi validado pelo comando npm run build; nao foi documentado aqui
+  um teste E2E executado contra o servidor de preview de producao.
+- As baselines visuais sao comparacoes de regressao no ambiente Chromium
+  configurado pelo Playwright; nao substituem revisao visual em outros
+  navegadores, sistemas ou dispositivos fisicos.

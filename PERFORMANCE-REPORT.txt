@@ -1,0 +1,55 @@
+RELATORIO DE PROFILING DE PERFORMANCE - PIRATE BATTLE
+=====================================================
+
+Data/hora: 2026-10-15T22:11:35.811Z
+Build: build de producao Vite (npm run build) servido por npm run preview.
+Sistema operacional: win32 10.0.19045
+CPU: AMD Ryzen 3 3200G with Radeon Vega Graphics     (4 nucleos logicos)
+Memoria fisica instalada: 31.9 GiB
+Navegador: Chromium 156.0.8078.4
+User agent: Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) HeadlessChrome/156.0.8078.4 Safari/537.36
+Renderizador WebGL reportado: ANGLE (Google, Vulkan 1.3.0 (SwiftShader Device (Subzero) (0x0000C0DE)), SwiftShader driver) / Google Inc. (Google)
+Viewport: 1280x720 CSS px; devicePixelRatio 1.
+Arena logica: 960x540 (16:9).
+
+CENARIO DE COMBATE
+------------------
+Configuracao: duracao 180s; intervalo de spawn 20s; 5 vidas.
+Seed de spawn: 20261015. Entradas durante a medicao: manter avancar, rotacionar e disparo frontal.
+Tempo medido entre o inicio e o fim da coleta de frames: 186.64s.
+Tempo real da partida ate a ultima amostra: 188.70s.
+A partida encerrou antes dos 180s: nao.
+Estado ao final: {"elapsedSeconds":2.2109999999991317,"score":0,"timeLeft":177.78900000000087,"running":true,"enemies":1,"bullets":0,"gameEntities":2,"pixiDisplayObjects":15,"canvasWidth":960,"canvasHeight":540}.
+Frames coletados: 4714.
+FPS medio observado: 25.26 (alvo: 60 FPS).
+Intervalo entre frames p95: 50.10 ms (referencia de 60 FPS: 16.67 ms).
+Frames acima de 16.67 ms: 4714.
+Frames acima de 33.33 ms: 2814.
+Entidades de gameplay (jogador + inimigos ativos + projeteis): media 4.5, pico 7.
+Pico de inimigos ativos: 3; pico de projeteis: 3.
+Pico de objetos de exibicao PixiJS observado: 22.
+
+MEMORIA E CICLO DE VIDA
+-----------------------
+Cada amostra de memoria foi coletada via Chrome DevTools Protocol apos HeapProfiler.collectGarbage.
+Referencia inicial: 4.00 MiB heap usado; 113 nos DOM; 176 listeners.
+After lifecycle 1: 6.58 MiB heap usado; 121 nos DOM; 191 listeners; 1 entidades antes de sair.
+After lifecycle 2: 6.90 MiB heap usado; 121 nos DOM; 191 listeners; 1 entidades antes de sair.
+After lifecycle 3: 7.10 MiB heap usado; 121 nos DOM; 191 listeners; 1 entidades antes de sair.
+After lifecycle 4: 7.17 MiB heap usado; 121 nos DOM; 191 listeners; 1 entidades antes de sair.
+After lifecycle 5: 7.48 MiB heap usado; 121 nos DOM; 191 listeners; 1 entidades antes de sair.
+Diferenca de heap apos cinco ciclos vs. referencia: +3.48 MiB.
+Match sample 1: 10.67 MiB heap usado; 107 nos DOM; 349 listeners.
+Match sample 2: 10.99 MiB heap usado; 107 nos DOM; 509 listeners.
+Match sample 3: 9.85 MiB heap usado; 107 nos DOM; 209 listeners.
+Match sample 4: 11.12 MiB heap usado; 107 nos DOM; 381 listeners.
+Apos a partida: 9.04 MiB heap usado; 104 nos DOM; 197 listeners.
+
+LIMITACOES
+----------
+- Execucao automatizada em Chromium headless; o renderizador pode ser SwiftShader/software e nao representa necessariamente uma GPU fisica.
+- O FPS e o p95 sao amostras de requestAnimationFrame do navegador, nao uma medicao independente de apresentacao/scanout do monitor.
+- A medicao de memoria cobre heap JavaScript, nos DOM e listeners reportados pelo Chromium; nao mede diretamente memoria GPU, RSS do processo ou todos os recursos nativos do PixiJS.
+- Os cinco ciclos consistem em iniciar, jogar por seis segundos com controles ativos e sair; a comparacao usa heap apos coleta forcada de lixo.
+- A partida termina por tempo ou morte. Se acabar por morte antes de 180 segundos, a duracao real fica indicada acima e nao se deve interpretar como tres minutos completos.
+- Resultado obtido neste ambiente de referencia local; repetir em hardware e navegador de destino antes de assumir como garantia de desempenho.
