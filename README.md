@@ -1,5 +1,11 @@
 # Desafio React & Pixi JS — Pirate Battle
 
+#Informações do Projeto
+## ARCHITECTURE.md - Toda estrutura do projeto, de maneira descritiva
+## DEVELOPME.md - Todo passo a passo desenvolvido e implementado
+## TEST-REPORT.txt - Rotina de testes automatizados e seus resultados descritivos
+
+## CRITÉRIOS SOLICITADOS
 Desenvolva um **shooter naval 2D com visão superior** usando React, TypeScript e PixiJS. O jogador deve navegar entre ilhas, enfrentar navios inimigos e acumular pontos até o fim da partida.
 
 O desafio avalia gameplay, domínio de PixiJS, arquitetura, integração de dados, experiência de uso e qualidade da entrega. Informe sua estimativa de prazo antes de iniciar.
